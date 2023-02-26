@@ -16,10 +16,13 @@ for file in files:
   print(file)
   with open(file, 'r', encoding='UTF-8') as to_read:
     for row in to_read:
-      row = json.loads(row)
-      x['company_name'] = row['company']
-      x['IPO_date'] = row['IPO']
-      try:
-        resp = es.index(index='index_name', body=x)
-      except Exception as F:
-        print(F)
+        counter+= 1
+        x['company_name'] = row['company']
+        x['IPO_date'] = row['IPO']
+        if counter %1000 ==0:
+          sys.stdout.write("\r{}".format(counter))
+        try:
+          resp = es.index(index='index_name', body=x)
+        except Exception as F:
+          print(F)
+      os.rename(file, file.replace(".json", "_done.json"))
