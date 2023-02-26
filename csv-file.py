@@ -12,7 +12,7 @@ if es.ping:
   ptint('connected')
   
   
-files = glob.glob("path/to/files/*.json")
+files = glob.glob("path/to/files/*.csv")
 
 for file in files:
   print(file)
